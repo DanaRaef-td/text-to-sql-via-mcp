@@ -1,35 +1,3 @@
-# text-to-sql-via-mcp
-
-# create you .env using .env.example as a reference, you can get the credentials from clearscape analytics environment 
-
-# to load data 
-python -m app.load_data
-
-
-# to install teradata mcp
-pip install uv
-
-uv tool install teradata-mcp-server
-
-# load mcp variables into process environment and start the server 
-
-Get-Content .env | Where-Object { $_ -match '^[A-Za-z_][A-Za-z0-9_]*=' } | ForEach-Object {
-    $name, $value = $_ -split '=', 2
-    [Environment]::SetEnvironmentVariable($name, $value, 'Process')
-}
-
-# start the mcp server
-teradata-mcp-server --mcp_transport streamable-http --mcp_port 8001
-
-# configure your OpenAI-compatible model endpoint
-
-# test the app 
-
-python -m app.ask
-
-
-
-
 # Text to SQL with Teradata MCP
 
 A command-line demo that answers questions about synthetic data stored in Teradata Vantage. It uses an OpenAI-compatible LLM endpoint to generate SQL, runs that SQL through the Teradata MCP server, then asks the model to summarize the returned rows.
