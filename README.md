@@ -1,4 +1,5 @@
 # text-to-sql-via-mcp
+
 # create you .env using .env.example as a reference, you can get the credentials from clearscape analytics environment 
 
 # to load data 
@@ -7,6 +8,7 @@ python -m app.load_data
 
 # to install teradata mcp
 pip install uv
+
 uv tool install teradata-mcp-server
 
 # load mcp variables into process environment and start the server 
